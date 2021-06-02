@@ -1,0 +1,28 @@
+<RCC>
+    <qresource prefix="/">
+        <file>uix/main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>uix/pages/login.qml</file>
+        <file>uix/fonts/Poppins/OFL.txt</file>
+        <file>uix/fonts/Poppins/Poppins-Black.ttf</file>
+        <file>uix/fonts/Poppins/Poppins-BlackItalic.ttf</file>
+        <file>uix/fonts/Poppins/Poppins-Bold.ttf</file>
+        <file>uix/fonts/Poppins/Poppins-BoldItalic.ttf</file>
+        <file>uix/fonts/Poppins/Poppins-ExtraBold.ttf</file>
+        <file>uix/fonts/Poppins/Poppins-ExtraBoldItalic.ttf</file>
+        <file>uix/fonts/Poppins/Poppins-ExtraLight.ttf</file>
+        <file>uix/fonts/Poppins/Poppins-ExtraLightItalic.ttf</file>
+        <file>uix/fonts/Poppins/Poppins-Italic.ttf</file>
+        <file>uix/fonts/Poppins/Poppins-Light.ttf</file>
+        <file>uix/fonts/Poppins/Poppins-LightItalic.ttf</file>
+        <file>uix/fonts/Poppins/Poppins-Medium.ttf</file>
+        <file>uix/fonts/Poppins/Poppins-MediumItalic.ttf</file>
+        <file>uix/fonts/Poppins/Poppins-Regular.ttf</file>
+        <file>uix/fonts/Poppins/Poppins-SemiBold.ttf</file>
+        <file>uix/fonts/Poppins/Poppins-SemiBoldItalic.ttf</file>
+        <file>uix/fonts/Poppins/Poppins-Thin.ttf</file>
+        <file>uix/fonts/Poppins/Poppins-ThinItalic.ttf</file>
+        <file>uix/components/svg/Svg.qml</file>
+        <file>uix/components/svg/SvgPath.qml</file>
+    </qresource>
+</RCC>
