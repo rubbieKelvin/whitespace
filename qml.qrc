@@ -24,5 +24,25 @@
         <file>uix/fonts/Poppins/Poppins-ThinItalic.ttf</file>
         <file>uix/components/svg/Svg.qml</file>
         <file>uix/components/svg/SvgPath.qml</file>
+        <file>uix/components/form/TextInput.qml</file>
+        <file>uix/pages/splash.qml</file>
+        <file>uix/pages/home.qml</file>
+        <file>uix/images/v350joJG2Sk.png</file>
+        <file>uix/components/svg/SvgSource.qml</file>
+        <file>uix/components/svg/svg.js</file>
+        <file>uix/components/images/RoundImage.qml</file>
+        <file>uix/pages/components/SubSpaceListItem.qml</file>
+        <file>uix/menus/main.qml</file>
+        <file>uix/menus/components/MenuItem.qml</file>
+        <file>uix/pages/signup.qml</file>
+        <file>uix/components/hardware/BackButtonDummy.qml</file>
+        <file>uix/lib/restlib.js</file>
+        <file>uix/components/form/UiButton.qml</file>
+        <file>uix/images/logo.png</file>
+        <file>uix/images/whitespace-banner.svg</file>
+        <file>uix/images/whitespace-login-banner.svg</file>
+        <file>uix/images/whitespace-signup-banner.svg</file>
+        <file>uix/lib/color.js</file>
+        <file>uix/components/app/MobilePage.qml</file>
     </qresource>
 </RCC>
