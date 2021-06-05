@@ -1,7 +1,8 @@
 #include "qtstatusbar/src/statusbar.h"
 #include <QGuiApplication>
+#include <QQmlContext>
 #include <QQmlApplicationEngine>
-
+#include "includes/xtorage.h"
 
 int main(int argc, char *argv[]){
     
@@ -11,6 +12,10 @@ int main(int argc, char *argv[]){
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
+    Xtorage xtorage;
+
+    xtorage.key = 17;
+    xtorage.filename = QStringLiteral("whitespace.crypt");
 
     qmlRegisterType<StatusBar>("StatusBar", 0, 1, "StatusBar");
     
@@ -25,6 +30,8 @@ int main(int argc, char *argv[]){
                 QCoreApplication::exit(-1);
         },
         Qt::QueuedConnection);
+
+    engine.rootContext()->setContextProperty(QStringLiteral("xtorage"), &xtorage);
     
     engine.load(url);
     return app.exec();

@@ -1,4 +1,4 @@
-QT += quick svg qml quickcontrols2
+QT += quick svg qml quickcontrols2 core
 CONFIG += c++11
 
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -8,7 +8,8 @@ CONFIG += c++11
 include(qtstatusbar/src/statusbar.pri)
 
 SOURCES += \
-        main.cpp
+        main.cpp \
+        xtorage.cpp
 
 RESOURCES += qml.qrc
 
@@ -23,6 +24,12 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
+HEADERS += \
+	includes/cxxlib.h \
+	includes/xtorage.h
+
 DISTFILES += \
 	android/AndroidManifest.xml \
 	android/build.gradle \
@@ -32,5 +39,3 @@ DISTFILES += \
 	android/gradlew \
 	android/gradlew.bat \
 	android/res/values/libs.xml
-
-ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

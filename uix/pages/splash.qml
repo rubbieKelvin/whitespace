@@ -1,9 +1,10 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Material 2.0
+import "../lib/color.js" as ColorJS
+import "../lib/restlib.js" as RestLib
 import "../components/app/" as AppUtils
 import "../components/form" as FormComponents
-import "../lib/color.js" as ColorJS
 
 AppUtils.MobilePage {
 	id: root
@@ -17,6 +18,12 @@ AppUtils.MobilePage {
 	on_loaded: function () {
 		statusbar.color = "black"
 		statusbar.theme = Material.Dark
+
+		// new RestLib.Requests("/authentication/users/me/", {
+		// 	method: "GET"
+		// }).onload(function(xhr){
+
+		// }).call()
 	}
 
 	Image {
