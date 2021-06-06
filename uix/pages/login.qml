@@ -5,6 +5,7 @@ import "../components/svg" as LibSvg
 import "../lib/color.js" as ColorJS
 import "../components/form" as FormComponents
 import "../components/app" as AppUtils
+import "../components/networking"
 
 AppUtils.MobilePage {
 	name: "login"
@@ -14,8 +15,17 @@ AppUtils.MobilePage {
 		color: "black"
 	}
 
+	property WhitespaceApi api: whitespaceapi
+
 	function do_login() {
-		app_stack.push("./home.qml")
+		api.user.email = email_input.text.trim()
+
+		api.user.login(password_input.text, function(xhr){
+			console.debug("logged in user")
+			app_stack.push("./home.qml")
+		}, function(){
+			console.debug("error logging in")
+		})
 	}
 
 	on_backButtonPressed: function () {

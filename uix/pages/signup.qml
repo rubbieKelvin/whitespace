@@ -5,6 +5,7 @@ import "../components/svg" as LibSvg
 import "../lib/color.js" as ColorJS
 import "../components/form" as FormComponents
 import "../components/app" as AppUtils
+import "../components/networking"
 
 AppUtils.MobilePage {
 	name: "login"
@@ -14,8 +15,19 @@ AppUtils.MobilePage {
 		color: "black"
 	}
 
-	function do_login() {
-		app_stack.push("./home.qml")
+	property WhitespaceApi api: whitespaceapi
+
+	function do_signup() {
+		api.user.email = email_input.text.trim()
+
+		api.user.signup(password_input.text, function(xhr){
+			console.debug("created user: "+JSON.stringify(api.user.toJson()))
+			// go to login page
+			// TODO: create notification for this
+			console.debug("created account, now go to login")
+		}, function(){
+			console.debug("error creating user")
+		})
 	}
 
 	on_backButtonPressed: function () {
@@ -141,7 +153,7 @@ AppUtils.MobilePage {
 				anchors.rightMargin: 0
 				topPadding: bottomPadding
 
-				onAccepted: do_login()
+				onAccepted: do_signup()
 				onFocusChanged: __1.redraw()
 			}
 			spacing: 4
@@ -183,7 +195,7 @@ AppUtils.MobilePage {
 			ui_radius: 12
 			ui_bgColor: ColorJS.color(ColorJS.primary)
 			ui_elevationColor: ColorJS.color(ColorJS.primary, "66")
-			onClicked: do_login()
+			onClicked: do_signup()
 		}
 	}
 

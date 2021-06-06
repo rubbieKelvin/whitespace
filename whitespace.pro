@@ -1,5 +1,10 @@
-QT += quick svg qml quickcontrols2 core
+QT += quick svg qml quickcontrols2 core network
 CONFIG += c++11
+
+unix:android{
+QT += androidextras
+}
+
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.

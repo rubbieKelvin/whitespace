@@ -6,14 +6,15 @@ import "../components/svg/svg.js" as SvgJS
 import "../components/images" as ImgLib
 import "./components/" as Components
 import "../components/app" as AppUtils
+import "../components/form" as FormComponents
+import "../lib/color.js" as ColorJS
+import "../components/networking"
 
 AppUtils.MobilePage {
 	id: root
 	clip: true
 	name: "home"
-	background: Rectangle {
-		color: "white"
-	}
+	background: Rectangle {color: "white"}
 	header: Rectangle {
 		id: rectangle
 		height: 60
@@ -31,11 +32,21 @@ AppUtils.MobilePage {
 		}
 
 		Label {
-			text: "Whitespace"
+			text: {
+				let first = toTitle(api.user.first_name)
+				let last = toTitle(api.user.last_name)
+				if (api.user.first_name || api.user.last_name) 
+					return `${first} ${last}`
+				return qsTr("Whitespace")
+			}
 			anchors.verticalCenter: parent.verticalCenter
 			anchors.left: menu_toggle_btn.right
 			font.pixelSize: 20
 			anchors.leftMargin: 20
+
+			function toTitle(string){
+				return string[0].toUpperCase() + string.slice(1)
+			}
 		}
 
 		ImgLib.RoundImage {
@@ -49,6 +60,9 @@ AppUtils.MobilePage {
 			anchors.verticalCenter: parent.verticalCenter
 		}
 	}
+
+	property WhitespaceApi api: whitespaceapi
+
 	on_loaded: function () {
 		statusbar.color = "white"
 		statusbar.theme = Material.Light
@@ -96,13 +110,13 @@ AppUtils.MobilePage {
 		id: create_or_join_menu
 		x: (parent.width - width) / 2
 		y: (parent.height - height) / 2
-		width: Math.min(parent.width, parent.height) * .7
+		width: Math.min(parent.width, parent.height) * .6
 		parent: Overlay.overlay
 		Material.foreground: "black"
 		Material.background: "white"
 
 		Column {
-			spacing: 15
+			spacing: 10
 			padding: 5
 			width: parent.width
 
@@ -115,16 +129,29 @@ AppUtils.MobilePage {
 				spacing: 5
 				width: parent.width - (parent.padding * 2)
 
-				Button {
-					flat: true
+				FormComponents.UiButton {
 					text: "Create a space"
 					width: parent.width
+					ui_bgColor: "transparent"
+					ui_stroke: 1
+					ui_strokeColor: (down || hovered) ? ColorJS.color(ColorJS.primary) : "#888888"
+					ui_radius: 5
+					ui_color: ui_strokeColor
+					ui_overlayColor: "#11000000"
+					height: 55
 				}
 
-				Button {
+				FormComponents.UiButton {
 					flat: true
 					text: "Join a space"
 					width: parent.width
+					ui_bgColor: "transparent"
+					ui_stroke: 1
+					ui_strokeColor: (down || hovered) ? ColorJS.color(ColorJS.primary) : "#888888"
+					ui_radius: 5
+					height: 55
+					ui_color: ui_strokeColor
+					ui_overlayColor: "#11000000"
 				}
 			}
 		}
@@ -132,7 +159,7 @@ AppUtils.MobilePage {
 }
 /*##^##
 Designer {
-	D{i:0;formeditorZoom:0.5}D{i:5}
+	D{i:0;height:1000;width:400}
 }
 ##^##*/
 

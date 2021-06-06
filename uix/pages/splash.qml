@@ -2,7 +2,6 @@ import QtQuick 2.9
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Material 2.0
 import "../lib/color.js" as ColorJS
-import "../lib/restlib.js" as RestLib
 import "../components/app/" as AppUtils
 import "../components/form" as FormComponents
 
@@ -14,16 +13,9 @@ AppUtils.MobilePage {
 		color: "black"
 	}
 	on_backButtonPressed: null
-
 	on_loaded: function () {
 		statusbar.color = "black"
 		statusbar.theme = Material.Dark
-
-		// new RestLib.Requests("/authentication/users/me/", {
-		// 	method: "GET"
-		// }).onload(function(xhr){
-
-		// }).call()
 	}
 
 	Image {
@@ -61,6 +53,24 @@ AppUtils.MobilePage {
 			ui_elevationColor: ColorJS.color(ColorJS.primary, "66")
 
 			onClicked: app_stack.push("./signup.qml")
+		}
+	}
+
+	// TODO: remove this or set visible:false
+	// use to test network ping
+	Button {
+		visible: false
+		enabled: visible
+		anchors.bottom: parent.bottom
+		width: parent.width
+		height: 100
+		text: "Test ping : <status>"
+		onClicked: {
+			// new RestLib.Requests("http://192.168.43.153:8000/api/test/ping/", {}).onload(function (xhr) {
+			// 	text = `Test ping : <${xhr.status}>`
+			// }).onerror(function () {
+			// 	text = `"Test ping : <${error}>"`
+			// }).call()
 		}
 	}
 }

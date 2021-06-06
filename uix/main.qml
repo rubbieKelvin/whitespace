@@ -3,6 +3,7 @@ import StatusBar 0.1
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Material 2.12
 import "./components/hardware/" as HWDummy
+import "./components/networking" as NetworkLib
 
 ApplicationWindow {
 	id: window
@@ -11,13 +12,12 @@ ApplicationWindow {
 	visible: true
 	font.pixelSize: 14
 	font.family: poppins.name
-	flags: Qt.Window | Qt.MaximizeUsingFullscreenGeometryHint
-
-	property bool drawer_opened: false
-
 	Material.background: "black"
 	Material.theme: Material.Light
 	Material.accent: "#2F80ED"
+	flags: Qt.Window | Qt.MaximizeUsingFullscreenGeometryHint
+
+	property bool drawer_opened: false
 
 	function toggle_drawer(forceclose) {
 		forceclose = (forceclose === null
@@ -60,6 +60,10 @@ ApplicationWindow {
 		menu_anim_h.restart()
 	}
 
+	NetworkLib.WhitespaceApi{
+		id: whitespaceapi
+	}
+
 	StatusBar {
 		id: statusbar
 		color: "black"
@@ -92,9 +96,18 @@ ApplicationWindow {
 		height: (a_s_value.height / 100) * window.height
 		anchors.verticalCenter: parent.verticalCenter
 		anchors.verticalCenterOffset: 0
-		initialItem: "./pages/splash.qml"
+		// initialItem: "./pages/splash.qml"
+
+		Component.onCompleted: {
+			whitespaceapi.user.getTokenFromXtorage()
+			console.debug("user logged in? "+whitespaceapi.user.loggedIn)
+			if (whitespaceapi.user.loggedIn) app_stack.push("./pages/home.qml")
+			else app_stack.push("./pages/splash.qml")
+		}
 
 		onCurrentItemChanged: {
+			// setup handlers for when the page is pushed,
+			// and when the mobile back button is clicked
 			let m_page = currentItem
 			backbutton.handler = m_page.on_backButtonPressed || null
 			if (m_page.on_loaded !== undefined)
@@ -133,6 +146,15 @@ ApplicationWindow {
 		target: window
 		function onClosing(event) {
 			return backbutton.on_triggered(event)
+		}
+	}
+
+	Connections{
+		target: whitespaceapi.user
+
+		function onRequiresLogin(){
+			// user requires login
+			app_stack.push("./pages.splash.qml")
 		}
 	}
 }

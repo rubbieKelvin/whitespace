@@ -11,6 +11,7 @@ Button {
 	property int ui_elevation: 0
 	property int ui_stroke: 0
 	property int ui_radius: 0
+	property alias ui_overlayColor: overlay.color
 
 	background: Rectangle {
 		color: ui_bgColor
@@ -31,6 +32,7 @@ Button {
 		}
 
 		Rectangle {
+			id: overlay
 			color: "#44ffffff"
 			anchors.fill: parent
 			visible: root.hovered || root.down

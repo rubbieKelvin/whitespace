@@ -16,6 +16,8 @@ TextField {
 		visible: false
 		anchors.verticalCenter: parent.verticalCenter
 		padding: 0
+		enabled: false
+		opacity: enabled ? .7 : 1
 	}
 
 	Button {

@@ -1,11 +1,12 @@
 .pragma library
 
-const BASEURL = "http://192.168.122.1:8000/api"
+const BASEURL = "http://192.168.43.153:8000/api"
 
-class Requests {
+// Restlib
+class Request {
 	constructor (url, options) {
-		this.url = `${BASEURL}${url}`
-		this.method = options.method || "GET"
+		this.url = url
+		this.method = options.method || "GET";
 		this.headers = options.headers || {}
 		this.useCredentials = options.useCredentials || false
 		this.responseType = options.responseType || "json"
@@ -14,46 +15,56 @@ class Requests {
 		this.xhr = new XMLHttpRequest()
 
 		this.$onerror = function () {}
-		this.$onload = function () {}
+		this.$onload = []
 	}
 
 	onload(callback){
-		this.$onload = callback;
+		this.$onload.push(callback);
+		return this;
+	}
+
+	onerror(callback){
+		this.$onerror = callback;
 		return this;
 	}
 
 	call(){
-		this.xhr.withCredentials = this.useCredentials
+		const xhr = this.xhr;
+		const self = this;
 
-		this.xhr.open(this.method, this.url)
-		this.xhr.responseType = this.responseType;
+		xhr.withCredentials = this.useCredentials
 
-		this.xhr.setRequestHeader("Content-Type", "application/json")
+		xhr.open(this.method, this.url)
+		xhr.responseType = this.responseType;
+
+		xhr.setRequestHeader("Content-Type", "application/json")
 		Object.keys(this.headers).forEach(
 			key => {
-				this.xhr.setRequestHeader(key, this.headers[key])
+				xhr.setRequestHeader(key, this.headers[key])
 			}
 		)
 
-		this.xhr.onload = function () {
-			this.$onload(this.xhr)
+		xhr.onload = function () {
+			self.$onload.forEach(function(handler){
+				handler(xhr);
+			})
 		}
 
-		this.xhr.onerror = function () {
-			this.$onerror(this.xhr)
+		xhr.onerror = function () {
+			self.$onerror(xhr)
 		}
 
 		if (this.body===null){
-			this.xhr.send()
+			xhr.send()
 		}else{
 			if (typeof this.body == 'object'){
-				this.xhr.send(
+				xhr.send(
 					JSON.stringify(this.body)
 				)
 			}else{
-				this.xhr.send(this.body)
+				xhr.send(this.body)
 			}
 		}
-		return this.xhr
+		return xhr
 	}
 }

@@ -36,7 +36,6 @@
         <file>uix/menus/components/MenuItem.qml</file>
         <file>uix/pages/signup.qml</file>
         <file>uix/components/hardware/BackButtonDummy.qml</file>
-        <file>uix/lib/restlib.js</file>
         <file>uix/components/form/UiButton.qml</file>
         <file>uix/images/logo.png</file>
         <file>uix/images/whitespace-banner.svg</file>
@@ -44,5 +43,8 @@
         <file>uix/images/whitespace-signup-banner.svg</file>
         <file>uix/lib/color.js</file>
         <file>uix/components/app/MobilePage.qml</file>
+        <file>uix/lib/restlib.js</file>
+        <file>uix/components/networking/WhitespaceApi.qml</file>
+        <file>uix/components/networking/User.qml</file>
     </qresource>
 </RCC>
