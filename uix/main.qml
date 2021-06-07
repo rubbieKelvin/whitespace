@@ -2,6 +2,7 @@ import QtQuick 2.12
 import StatusBar 0.1
 import QtQuick.Controls 2.5
 import QtQuick.Controls.Material 2.12
+import "./components/app" as AppUtils
 import "./components/hardware/" as HWDummy
 import "./components/networking" as NetworkLib
 
@@ -60,7 +61,7 @@ ApplicationWindow {
 		menu_anim_h.restart()
 	}
 
-	NetworkLib.WhitespaceApi{
+	NetworkLib.WhitespaceApi {
 		id: whitespaceapi
 	}
 
@@ -96,13 +97,15 @@ ApplicationWindow {
 		height: (a_s_value.height / 100) * window.height
 		anchors.verticalCenter: parent.verticalCenter
 		anchors.verticalCenterOffset: 0
-		// initialItem: "./pages/splash.qml"
 
+		// initialItem: "./pages/splash.qml"
 		Component.onCompleted: {
 			whitespaceapi.user.getTokenFromXtorage()
-			console.debug("user logged in? "+whitespaceapi.user.loggedIn)
-			if (whitespaceapi.user.loggedIn) app_stack.push("./pages/home.qml")
-			else app_stack.push("./pages/splash.qml")
+			console.debug("user logged in? " + whitespaceapi.user.loggedIn)
+			if (whitespaceapi.user.loggedIn)
+				app_stack.push("./pages/home.qml")
+			else
+				app_stack.push("./pages/splash.qml")
 		}
 
 		onCurrentItemChanged: {
@@ -113,6 +116,14 @@ ApplicationWindow {
 			if (m_page.on_loaded !== undefined)
 				m_page.on_loaded()
 		}
+	}
+
+	AppUtils.SnackBar {
+		id: snackbar
+		height: 55
+		anchors.left: parent.left
+		anchors.right: parent.right
+		anchors.bottom: parent.bottom
 	}
 
 	//app stack values
@@ -149,12 +160,18 @@ ApplicationWindow {
 		}
 	}
 
-	Connections{
+	Connections {
 		target: whitespaceapi.user
 
-		function onRequiresLogin(){
+		function onRequiresLogin() {
 			// user requires login
-			app_stack.push("./pages.splash.qml")
+			app_stack.push("./pages/splash.qml")
+		}
+
+		function onUserDataUpdated() {
+			if (whitespaceapi.user.loggedIn) {
+				snackbar.show("Logged in as " + whitespaceapi.user.email)
+			}
 		}
 	}
 }

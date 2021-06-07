@@ -9,11 +9,21 @@ Rectangle {
 	property alias title: title
 	property alias svg: svg
 
+	signal clicked
+
+	Rectangle{
+		id: overlay
+		opacity: .15
+		visible: false
+		anchors.fill: parent
+		color: "#333333"
+	}
+
 	SvgLib.SvgSource {
 		id: svg
 		x: 5
-		width: visible ? 32 : 0
-		height: visible ? 32 : 0
+		width: visible ? 26 : 0
+		height: visible ? 26 : 0
 		anchors.verticalCenter: parent.verticalCenter
 	}
 
@@ -31,10 +41,9 @@ Rectangle {
 			text: qsTr("Label")
 			color: "#fff"
 			font.pixelSize: 12
-			verticalAlignment: Text.AlignBottom
+			verticalAlignment: (subtitle.visible && subtitle.text.length > 0) ? Text.AlignBottom : Text.AlignVCenter
 			width: parent.width
-			height: (subtitle.visible
-					 && subtitle.text.length > 0) ? parent.height * .65 : parent.height
+			height: (subtitle.visible && subtitle.text.length > 0) ? parent.height * .65 : parent.height
 		}
 
 		Label {
@@ -48,6 +57,11 @@ Rectangle {
 
 	MouseArea {
 		anchors.fill: parent
+		cursorShape: Qt.PointingHandCursor
+		hoverEnabled: true
+		onClicked: root.clicked()
+		onEntered: overlay.visible = true
+		onExited: overlay.visible = false
 	}
 }
 

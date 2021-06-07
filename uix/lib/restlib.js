@@ -34,7 +34,7 @@ class Request {
 
 		xhr.withCredentials = this.useCredentials
 
-		xhr.open(this.method, this.url)
+		xhr.open(this.method.toUpperCase(), this.url)
 		xhr.responseType = this.responseType;
 
 		xhr.setRequestHeader("Content-Type", "application/json")

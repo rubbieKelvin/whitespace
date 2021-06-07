@@ -46,5 +46,6 @@
         <file>uix/lib/restlib.js</file>
         <file>uix/components/networking/WhitespaceApi.qml</file>
         <file>uix/components/networking/User.qml</file>
+        <file>uix/components/app/SnackBar.qml</file>
     </qresource>
 </RCC>

@@ -14,7 +14,9 @@ AppUtils.MobilePage {
 	id: root
 	clip: true
 	name: "home"
-	background: Rectangle {color: "white"}
+	background: Rectangle {
+		color: "white"
+	}
 	header: Rectangle {
 		id: rectangle
 		height: 60
@@ -35,7 +37,7 @@ AppUtils.MobilePage {
 			text: {
 				let first = toTitle(api.user.first_name)
 				let last = toTitle(api.user.last_name)
-				if (api.user.first_name || api.user.last_name) 
+				if (api.user.first_name || api.user.last_name)
 					return `${first} ${last}`
 				return qsTr("Whitespace")
 			}
@@ -44,8 +46,9 @@ AppUtils.MobilePage {
 			font.pixelSize: 20
 			anchors.leftMargin: 20
 
-			function toTitle(string){
-				return string[0].toUpperCase() + string.slice(1)
+			function toTitle(string_) {
+				return (string_[0] || '').toUpperCase() + (string_
+														   || '').slice(1)
 			}
 		}
 
@@ -134,7 +137,9 @@ AppUtils.MobilePage {
 					width: parent.width
 					ui_bgColor: "transparent"
 					ui_stroke: 1
-					ui_strokeColor: (down || hovered) ? ColorJS.color(ColorJS.primary) : "#888888"
+					ui_strokeColor: (down
+									 || hovered) ? ColorJS.color(
+													   ColorJS.primary) : "#888888"
 					ui_radius: 5
 					ui_color: ui_strokeColor
 					ui_overlayColor: "#11000000"
@@ -147,7 +152,9 @@ AppUtils.MobilePage {
 					width: parent.width
 					ui_bgColor: "transparent"
 					ui_stroke: 1
-					ui_strokeColor: (down || hovered) ? ColorJS.color(ColorJS.primary) : "#888888"
+					ui_strokeColor: (down
+									 || hovered) ? ColorJS.color(
+													   ColorJS.primary) : "#888888"
 					ui_radius: 5
 					height: 55
 					ui_color: ui_strokeColor
